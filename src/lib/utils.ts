@@ -24,6 +24,31 @@ export function calculateEstimatedArrival(
   });
 }
 
+// Mobile device detection utility
+export function isMobileDevice(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.innerWidth <= 768;
+}
+
+// Device-optimized date format
+export function formatDateForDevice(dateString: string): string {
+  const date = new Date(dateString);
+  // On mobile, use shorter format
+  if (isMobileDevice()) {
+    return date.toLocaleTimeString("en-AU", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  }
+  // On desktop, use more detailed format
+  return date.toLocaleTimeString("en-AU", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
 // Filter departures by time (only show departures after the selected time)
 export function filterDeparturesByTime(
   departures: any[],

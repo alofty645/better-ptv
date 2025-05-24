@@ -17,16 +17,17 @@ export default function Home() {
       // No need to do anything here, the mirroring will happen in the RouteSelector
     }
   }, [mirrorCommutes, morningFrom, morningTo]);
-
   return (
-    <main className="container max-w-4xl mx-auto p-4 py-8 space-y-8">
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold">PTV Train Commute Planner</h1>
-        <p className="text-muted-foreground">
+    <main className="container max-w-4xl mx-auto p-3 py-4 sm:p-4 sm:py-8 space-y-4 sm:space-y-8">
+      <div className="text-center space-y-1 sm:space-y-2">
+        <h1 className="text-2xl sm:text-3xl font-bold">
+          PTV Train Commute Planner
+        </h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Plan your daily train commute with real-time information
         </p>
-      </div>{" "}
-      <div className="flex items-center space-x-2 mb-4 justify-center">
+      </div>
+      <div className="flex items-center flex-wrap space-x-2 mb-2 sm:mb-4 justify-center px-2">
         <Checkbox
           id="mirror"
           checked={mirrorCommutes}
@@ -34,11 +35,11 @@ export default function Home() {
             setMirrorCommutes(checked === true)
           }
         />
-        <Label htmlFor="mirror" className="text-sm cursor-pointer">
-          Automatically mirror morning commute in reverse for evening commute
+        <Label htmlFor="mirror" className="text-xs sm:text-sm cursor-pointer">
+          Mirror morning commute for evening
         </Label>
-      </div>{" "}
-      <div className="grid gap-6 md:grid-cols-2">
+      </div>
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
         <RouteSelector
           title="Morning Commute"
           mirrorWith={mirrorCommutes ? "evening" : undefined}
@@ -51,8 +52,8 @@ export default function Home() {
           mirrorFromStation={mirrorCommutes ? morningTo : null}
           mirrorToStation={mirrorCommutes ? morningFrom : null}
         />
-      </div>
-      <footer className="text-center text-sm text-muted-foreground pt-8">
+      </div>{" "}
+      <footer className="text-center text-xs sm:text-sm text-muted-foreground pt-4 sm:pt-8">
         <p>Powered by PTV Timetable API</p>
       </footer>
     </main>

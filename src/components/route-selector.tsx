@@ -130,14 +130,12 @@ export function RouteSelector({
   }, [departureTime, departures]);
   // Determine if component is in mirrored read-only mode
   const isReadOnly = mirrorWith === "morning";
-
   return (
-    <Card className="p-4 space-y-4">
-      <h2 className="text-xl font-semibold">{title}</h2>
-
+    <Card className="p-3 sm:p-4 space-y-3 sm:space-y-4">
+      <h2 className="text-lg sm:text-xl font-semibold">{title}</h2>
       {/* From Station Selection */}
-      <div className="mb-4">
-        <h3 className="text-sm font-medium mb-2">From</h3>
+      <div className="mb-3 sm:mb-4">
+        <h3 className="text-xs sm:text-sm font-medium mb-1 sm:mb-2">From</h3>
         {isReadOnly ? (
           <div className="p-2 border rounded bg-muted/30">
             {fromStation ? (
@@ -150,48 +148,45 @@ export function RouteSelector({
           </div>
         ) : (
           <StationSelect
-            onStationSelect={setFromStation}
+            onSelect={setFromStation}
             selectedStation={fromStation}
           />
         )}
-      </div>
-
+      </div>{" "}
       {/* To Station Selection */}
-      <div className="mb-4">
-        <h3 className="text-sm font-medium mb-2">To</h3>
+      <div className="mb-3 sm:mb-4">
+        <h3 className="text-xs sm:text-sm font-medium mb-1 sm:mb-2">To</h3>
         {isReadOnly ? (
           <div className="p-2 border rounded bg-muted/30">
             {toStation ? (
-              <p className="font-medium">{toStation.stop_name}</p>
+              <p className="text-sm font-medium">{toStation.stop_name}</p>
             ) : (
-              <p className="text-muted-foreground italic">
+              <p className="text-xs sm:text-sm text-muted-foreground italic">
                 Mirrored station will appear here
               </p>
             )}
           </div>
         ) : (
-          <StationSelect
-            onStationSelect={setToStation}
-            selectedStation={toStation}
-          />
+          <StationSelect onSelect={setToStation} selectedStation={toStation} />
         )}
-      </div>
-
+      </div>{" "}
       {/* Journey Info */}
       {fromStation && toStation && (
-        <div className="bg-muted/30 p-2 rounded text-sm">
-          <p className="font-medium">
-            Journey: {fromStation.stop_name} → {toStation.stop_name}
+        <div className="bg-muted/30 p-2 rounded text-xs sm:text-sm">
+          <p className="font-medium truncate">
+            Journey:{" "}
+            <span className="truncate">
+              {fromStation.stop_name} → {toStation.stop_name}
+            </span>
           </p>
           {journeyTime && (
-            <p className="text-muted-foreground">
-              Estimated time: ~{journeyTime} minutes
+            <p className="text-muted-foreground text-xs sm:text-sm">
+              Est. time: ~{journeyTime} min
             </p>
           )}
         </div>
-      )}
-
-      {/* Time Selection & Departure Button */}
+      )}{" "}
+      {/* Time Selection & Departure Button */}{" "}
       <div className="space-y-2">
         <TimePicker
           label="Departure Time"
@@ -202,15 +197,13 @@ export function RouteSelector({
 
         <Button
           onClick={handleSearchDepartures}
-          className="w-full"
+          className="w-full text-sm h-9"
           disabled={isLoading || !fromStation}
         >
           {isLoading ? "Loading..." : "View Departures"}
         </Button>
       </div>
-
-      {error && <p className="text-sm text-red-500">{error}</p>}
-
+      {error && <p className="text-xs sm:text-sm text-red-500">{error}</p>}
       {filteredDepartures && (
         <DepartureList
           departures={filteredDepartures.departures}
